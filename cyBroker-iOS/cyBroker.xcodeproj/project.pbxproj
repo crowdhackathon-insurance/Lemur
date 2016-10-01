@@ -13,6 +13,7 @@
 		09D33B641D9FC285009864D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09D33B621D9FC285009864D6 /* Main.storyboard */; };
 		09D33B661D9FC285009864D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09D33B651D9FC285009864D6 /* Assets.xcassets */; };
 		09D33B691D9FC285009864D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09D33B671D9FC285009864D6 /* LaunchScreen.storyboard */; };
+		F9CE68B56B2AA22E574F97C0 /* Pods_cyBroker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFF766C140CC27772380371 /* Pods_cyBroker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,9 @@
 		09D33B651D9FC285009864D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09D33B681D9FC285009864D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09D33B6A1D9FC285009864D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFF662F2E3CB7341721387CF /* Pods-cyBroker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cyBroker.release.xcconfig"; path = "Pods/Target Support Files/Pods-cyBroker/Pods-cyBroker.release.xcconfig"; sourceTree = "<group>"; };
+		D68D9BCD07EEEEBDE83B6E66 /* Pods-cyBroker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cyBroker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cyBroker/Pods-cyBroker.debug.xcconfig"; sourceTree = "<group>"; };
+		FAFF766C140CC27772380371 /* Pods_cyBroker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cyBroker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9CE68B56B2AA22E574F97C0 /* Pods_cyBroker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		079B7DA6AE5A7C32AFC71404 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAFF766C140CC27772380371 /* Pods_cyBroker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		09D33B4D1D9FC284009864D6 = {
 			isa = PBXGroup;
 			children = (
 				09D33B581D9FC285009864D6 /* cyBroker */,
 				09D33B571D9FC284009864D6 /* Products */,
+				DD98000922B845E600C38358 /* Pods */,
+				079B7DA6AE5A7C32AFC71404 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +94,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DD98000922B845E600C38358 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D68D9BCD07EEEEBDE83B6E66 /* Pods-cyBroker.debug.xcconfig */,
+				CFF662F2E3CB7341721387CF /* Pods-cyBroker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,9 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09D33B6D1D9FC285009864D6 /* Build configuration list for PBXNativeTarget "cyBroker" */;
 			buildPhases = (
+				EEA7AA94ECB66A7B219C1DE5 /* [CP] Check Pods Manifest.lock */,
 				09D33B521D9FC284009864D6 /* Sources */,
 				09D33B531D9FC284009864D6 /* Frameworks */,
 				09D33B541D9FC284009864D6 /* Resources */,
+				5D8EE8F780FDE79C81E7BA34 /* [CP] Embed Pods Frameworks */,
+				E7E1C5C85DE1C166793844AE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -143,6 +170,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5D8EE8F780FDE79C81E7BA34 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cyBroker/Pods-cyBroker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E7E1C5C85DE1C166793844AE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cyBroker/Pods-cyBroker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEA7AA94ECB66A7B219C1DE5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		09D33B521D9FC284009864D6 /* Sources */ = {
@@ -263,6 +338,7 @@
 		};
 		09D33B6E1D9FC285009864D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D68D9BCD07EEEEBDE83B6E66 /* Pods-cyBroker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = cyBroker/Info.plist;
@@ -274,6 +350,7 @@
 		};
 		09D33B6F1D9FC285009864D6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFF662F2E3CB7341721387CF /* Pods-cyBroker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = cyBroker/Info.plist;
@@ -302,6 +379,7 @@
 				09D33B6F1D9FC285009864D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

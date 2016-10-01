@@ -1,0 +1,9 @@
+platform :ios, '9.0'
+use_frameworks!
+
+target 'cyBroker' do
+  pod 'AFNetworking'
+  pod 'MBProgressHUD'
+  pod 'JSONModel'
+  pod 'MMDrawerController'
+end
