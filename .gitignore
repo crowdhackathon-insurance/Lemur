@@ -60,6 +60,8 @@ fastlane/screenshots
 iOSInjectionProject/
 
 #Laravel Specifics
+
 /vendor
 /node_modules
 .env
+/Doc_intents
