@@ -16,7 +16,7 @@ class SumController extends Controller {
 	{
 		return array(
 			"title" => "Answer",
-			"body" => 'Your total sum for your contract is 1000 €'
+			"body" => 'The annual cost for your contract is 435 €'
 		);
 	}
 

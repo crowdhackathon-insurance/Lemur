@@ -20,7 +20,7 @@ class AgentController extends Controller {
 		$phone = '(+30)69453823514';
 		$address = 'Green Streen 12';
 
-		$body = "Your official agent info "."\n"."First Name: $firstname"."\n"."Last Name: $lastname"."\n"."Phone: $phone"."\n"."Address: $address";
+		$body = "Your agent info: "."\n \n"."First Name: $firstname"."\n"."Last Name: $lastname"."\n"."Phone: $phone"."\n"."Address: $address";
 
 		return array(
 			"title" => "Answer",
