@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MainViewController.h
 //  cyBroker
 //
 //  Created by Christos Koninis on 01/10/16.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface MainViewController : UIViewController
 
 @end
 
