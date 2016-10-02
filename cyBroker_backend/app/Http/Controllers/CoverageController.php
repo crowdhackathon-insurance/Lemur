@@ -24,7 +24,7 @@ class CoverageController extends Controller {
 		$limit3 = '1000 €';
 		$premium3 ='45 €';
 
-		$body = 'Your contract covers:'."<br>"."<br>".$covtitle1."<br>".'Limit: '.$limit1."<br>".'Premium: '.$premium1."<br>"."<br>".$covtitle2."<br>".'Limit: '.$limit2."<br>".'Premium: '.$premium3."<br>"."<br>".$covtitle3."<br>".'Limit: '.$limit3."<br>".'Premium: '.$premium2."<br>"."<br>";
+		$body = 'Your contract covers:'."\n"."\n".$covtitle1."\n".'Limit: '.$limit1."\n".'Premium: '.$premium1."\n"."\n".$covtitle2."\n".'Limit: '.$limit2."\n".'Premium: '.$premium3."\n"."\n".$covtitle3."\n".'Limit: '.$limit3."\n".'Premium: '. $premium2 ."\n"."\n";
 		return array(
 			"title" => "Answer",
 			"cov_title1" => $covtitle1,
@@ -33,6 +33,9 @@ class CoverageController extends Controller {
 			"limit1" => $limit1,
 			"limit2" => $limit2,
 			"limit3" => $limit3,
+			"premium1" => $premium1,
+			"premium2" => $premium2,
+			"premium3" => $premium3,
 			"body" => $body
 		);
 	}
