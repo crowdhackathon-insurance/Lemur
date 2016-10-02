@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import "HeaderLabelCell.h"
+#import "CYHTTPClient.h"
+
 @import Speech;
 
 typedef NS_ENUM(NSInteger, kCyStatus) {
@@ -35,6 +37,20 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     self.tableview.tableFooterView = [UIView new];
     
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
+    }];
+    
+    /*
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:@"http://192.168.177.95/names" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];*/
+    
+    [[CYHTTPClient sharedCYHTTPClient] fetchResponseWithUserInput:[Request requestWithUserInput:@"ewf s"] WithSuccessBlock:^(Response *response) {
+        NSLog(@"got response %@", response.text);
+    } andFailureBlock:^(Response *error) {
+        NSLog(@"got ERROR %@", error.text);
     }];
 }
 

@@ -13,6 +13,7 @@
 		09BE3B501DA0E83900F5E29F /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BE3B4F1DA0E83900F5E29F /* Request.m */; };
 		09BE3B531DA0E88500F5E29F /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BE3B521DA0E88500F5E29F /* Response.m */; };
 		09BE3B551DA0EB5600F5E29F /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09BE3B541DA0EB5600F5E29F /* Speech.framework */; };
+		09BE3B581DA0EFC600F5E29F /* CYHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BE3B571DA0EFC600F5E29F /* CYHTTPClient.m */; };
 		09D33B5B1D9FC285009864D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D33B5A1D9FC285009864D6 /* main.m */; };
 		09D33B5E1D9FC285009864D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D33B5D1D9FC285009864D6 /* AppDelegate.m */; };
 		09D33B611D9FC285009864D6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D33B601D9FC285009864D6 /* MainViewController.m */; };
@@ -31,6 +32,8 @@
 		09BE3B511DA0E88500F5E29F /* Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Response.h; sourceTree = "<group>"; };
 		09BE3B521DA0E88500F5E29F /* Response.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Response.m; sourceTree = "<group>"; };
 		09BE3B541DA0EB5600F5E29F /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
+		09BE3B561DA0EFC600F5E29F /* CYHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYHTTPClient.h; sourceTree = "<group>"; };
+		09BE3B571DA0EFC600F5E29F /* CYHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYHTTPClient.m; sourceTree = "<group>"; };
 		09D33B561D9FC284009864D6 /* cyBroker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cyBroker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09D33B5A1D9FC285009864D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		09D33B5C1D9FC285009864D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -121,6 +124,8 @@
 			children = (
 				09D33B5C1D9FC285009864D6 /* AppDelegate.h */,
 				09D33B5D1D9FC285009864D6 /* AppDelegate.m */,
+				09BE3B561DA0EFC600F5E29F /* CYHTTPClient.h */,
+				09BE3B571DA0EFC600F5E29F /* CYHTTPClient.m */,
 				09BE3B4D1DA0E7C300F5E29F /* Models */,
 				093FB34C1D9FE6BA0004CB34 /* Controllers */,
 				093FB3441D9FE2200004CB34 /* views */,
@@ -272,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09BE3B581DA0EFC600F5E29F /* CYHTTPClient.m in Sources */,
 				09BE3B531DA0E88500F5E29F /* Response.m in Sources */,
 				09D33B611D9FC285009864D6 /* MainViewController.m in Sources */,
 				09BE3B501DA0E83900F5E29F /* Request.m in Sources */,

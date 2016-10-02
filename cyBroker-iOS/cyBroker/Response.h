@@ -17,4 +17,6 @@
 @property (strong, nonatomic) NSString *text;
 //@property (strong, nonatomic) NSArray<NSString *> *locations;
 
++ (Response *)unknownError;
+
 @end

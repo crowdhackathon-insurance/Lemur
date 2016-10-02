@@ -10,6 +10,8 @@
 
 @interface Request : JSONModel
 
++ (instancetype)requestWithUserInput:(NSString *)aUserInput;
+
 @property (strong, nonatomic) NSString *userInput;
 
 @end

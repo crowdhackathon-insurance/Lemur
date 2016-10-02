@@ -10,4 +10,12 @@
 
 @implementation Request
 
++ (instancetype)requestWithUserInput:(NSString *)aUserInput
+{
+    Request *rq = [Request new];
+    rq.userInput = aUserInput;
+    
+    return rq;
+}
+
 @end

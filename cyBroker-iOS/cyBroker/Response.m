@@ -10,4 +10,12 @@
 
 @implementation Response
 
++ (Response *)unknownError
+{
+    Response *rsp = [Response new];
+    rsp.text = @"Unknown error, please try again latter";
+    
+    return rsp;
+}
+
 @end
