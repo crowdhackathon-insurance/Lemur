@@ -7,8 +7,13 @@
 //
 
 #import "MainViewController.h"
-#import "HeaderLabelCell.h"
+
+//Communication
 #import "CYHTTPClient.h"
+
+//Views
+#import "HeaderLabelCell.h"
+#import "TextAnswerCell.h"
 
 @import Speech;
 
@@ -34,6 +39,8 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
 @property (strong, nonatomic) UITextField *userInputTextField;
 @property (strong, nonatomic) UIButton *micButton;
 @property (strong, nonatomic) NSString *lastUserInput;
+
+@property (strong, nonatomic) Response *lastServerResponse;
 @end
 
 @implementation MainViewController
@@ -84,12 +91,22 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    if (self.currentStatus == cyStatusDisplayingResponse) {
+        return 2;
+    }
+    else {
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (self.currentStatus == cyStatusDisplayingResponse) {
+        return 1;
+    }
+    else {
+        return 1;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,7 +121,6 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     
     if (indexPath.section == 0) {
         HeaderLabelCell *headerLabelCell = (HeaderLabelCell *)[[NSBundle mainBundle] loadNibNamed:@"HeaderLabelCell" owner:nil options:nil].firstObject;
-//        headerLabelCell.translatesAutoresizingMaskIntoConstraints = NO;
         self.userInputTextField = headerLabelCell.textField;
         self.userInputTextField.text = self.lastUserInput;
         if (self.micButton != headerLabelCell.micButton) {
@@ -140,16 +156,39 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
         cell = headerLabelCell;
         
     }
+    else {
+        TextAnswerCell *textAnswerCell = (TextAnswerCell *)[[NSBundle mainBundle] loadNibNamed:@"TextAnswerCell" owner:nil options:nil].firstObject;
+
+        textAnswerCell.answerLabel.text = self.lastServerResponse.text;
+        
+        cell = textAnswerCell;
+    }
     
     return cell;
 }
+
+#pragma mark - Server Communication
 
 - (void)performRequestForUserInput:(NSString *)userInput
 {
     self.lastUserInput = userInput;
     self.currentStatus = cyStatusWaitingServerResponse;
     [self.tableview reloadData];
-    [self performSelector:@selector(serverResponse) withObject:nil afterDelay:3.5];
+    [self performSelector:@selector(serverResponse) withObject:nil afterDelay:1.5];
+}
+
+- (void)serverResponse
+{
+    self.lastServerResponse = [Response responseWithAnswer:@"i am afraid i can't let you do that"];
+    
+    if (self.lastServerResponse == [Response unknownError]) {
+        self.currentStatus = cyStatusDisplayingEmptyResponse;
+    }
+    else {
+        self.currentStatus = cyStatusDisplayingResponse;
+    }
+    
+    [self.tableview reloadData];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -158,12 +197,6 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     
     [self performRequestForUserInput:textField.text];
     return YES;
-}
-
-- (void)serverResponse
-{
-    self.currentStatus = cyStatusDisplayingEmptyResponse;
-    [self.tableview reloadData];
 }
 
 - (kCyStatus)getCurrentStatus

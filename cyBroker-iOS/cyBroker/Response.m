@@ -10,12 +10,26 @@
 
 @implementation Response
 
-+ (Response *)unknownError
+static Response *unknownErrorRsp;
+
++ (Response *)responseWithAnswer:(NSString *)answer
 {
     Response *rsp = [Response new];
-    rsp.text = @"Unknown error, please try again latter";
+    rsp.text = answer;
     
     return rsp;
+}
+
++ (Response *)unknownError
+{
+    //TODO: synchronize
+    if (!unknownErrorRsp) {
+        Response *rsp = [Response new];
+        rsp.text = @"Unknown error, please try again latter";
+        unknownErrorRsp = rsp;
+    }
+    
+    return unknownErrorRsp;
 }
 
 @end
