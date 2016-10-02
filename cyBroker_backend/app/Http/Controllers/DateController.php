@@ -22,8 +22,7 @@ class DateController extends Controller {
 		$t_end = date_create_from_format ('H\h i\m s\s','23h 18m 05s')->format('H:i:s');
 
 
-		$body_start = "Your contract starts at  $d_start  $t_start";
-		$body_end = "Your contract ends at  $d_end  $t_end";
+		$body = "Your contract started at  $d_start  $t_start"."<br>"."<br>"."Your contract ends at  $d_end  $t_end";
 
 
 		$info = array(
@@ -32,8 +31,7 @@ class DateController extends Controller {
 			"date_end" => $d_end,
 			"time_start" => $t_start,
 			"time_end" => $t_end,
-			"body_start" => $body_start,
-			"body_end" =>  $body_end
+			"body" => $body
 		);
 
 		//
