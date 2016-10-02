@@ -16,23 +16,27 @@
                 <frame key="frameInset" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oki-BX-6kF">
-                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="koG-Nw-G7d">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="200" id="9Sk-nb-Wk5"/>
+                        </constraints>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="oki-BX-6kF" secondAttribute="trailing" id="fA6-zx-Pzh"/>
-                    <constraint firstItem="oki-BX-6kF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="hI8-16-Ak3"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="oki-BX-6kF" secondAttribute="bottom" id="rlP-nD-39J"/>
-                    <constraint firstAttribute="topMargin" secondItem="oki-BX-6kF" secondAttribute="top" id="xV9-h0-ygL"/>
+                    <constraint firstItem="koG-Nw-G7d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="91R-Qk-nUP"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="koG-Nw-G7d" secondAttribute="trailing" id="fYg-Gc-Tzy"/>
+                    <constraint firstItem="koG-Nw-G7d" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="fhJ-dH-5sj"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="koG-Nw-G7d" secondAttribute="bottom" id="lIJ-Ku-cfp"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="answerLabel" destination="oki-BX-6kF" id="GZu-xo-gcO"/>
+                <outlet property="answerLabel" destination="koG-Nw-G7d" id="XSR-UU-i0B"/>
             </connections>
-            <point key="canvasLocation" x="-18" y="35"/>
+            <point key="canvasLocation" x="-724" y="-82"/>
         </tableViewCell>
     </objects>
 </document>

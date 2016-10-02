@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TextAnswerCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *answerLabel;
+@property (weak, nonatomic) IBOutlet UITextView *answerLabel;
 
 @end

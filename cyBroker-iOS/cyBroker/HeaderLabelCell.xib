@@ -20,7 +20,7 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hello?" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="25Y-7N-5wY">
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="245" id="IYw-p9-NGt"/>
+                            <constraint firstAttribute="width" constant="270" id="IYw-p9-NGt"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" returnKeyType="search"/>
@@ -41,7 +41,7 @@
                 <constraints>
                     <constraint firstItem="iOT-0A-IO4" firstAttribute="top" secondItem="u84-i0-ecN" secondAttribute="topMargin" constant="22" id="8tV-Ol-1TV"/>
                     <constraint firstItem="8fq-Q3-nTs" firstAttribute="centerY" secondItem="iOT-0A-IO4" secondAttribute="centerY" id="BtC-Vj-BLM"/>
-                    <constraint firstItem="25Y-7N-5wY" firstAttribute="centerX" secondItem="u84-i0-ecN" secondAttribute="centerX" id="UqK-nF-Rhr"/>
+                    <constraint firstItem="25Y-7N-5wY" firstAttribute="centerX" secondItem="u84-i0-ecN" secondAttribute="centerX" constant="-10" id="UqK-nF-Rhr"/>
                     <constraint firstItem="iOT-0A-IO4" firstAttribute="centerX" secondItem="u84-i0-ecN" secondAttribute="centerX" id="XXZ-Tw-tfi"/>
                     <constraint firstItem="25Y-7N-5wY" firstAttribute="top" secondItem="iOT-0A-IO4" secondAttribute="bottom" constant="45" id="Xnq-pg-ax8"/>
                     <constraint firstItem="3lC-Dh-Jlk" firstAttribute="leading" secondItem="25Y-7N-5wY" secondAttribute="trailing" constant="4" id="fA5-kh-IhI"/>
@@ -56,7 +56,7 @@
                 <outlet property="micButton" destination="3lC-Dh-Jlk" id="t27-pb-yY4"/>
                 <outlet property="textField" destination="25Y-7N-5wY" id="UMc-dm-LOI"/>
             </connections>
-            <point key="canvasLocation" x="-281" y="-27"/>
+            <point key="canvasLocation" x="-480" y="-168"/>
         </tableViewCell>
     </objects>
 </document>

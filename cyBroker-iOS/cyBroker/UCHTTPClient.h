@@ -10,11 +10,18 @@
 
 #define kInsuranceFaqClassifierName @"cyBroker"
 
+#define kCyBrokerPrice @"Price"
+#define kCyBrokerDuration @"Duration"
+#define kCyBrokerCoverage @"Coverage"
+#define kCyBrokerAgents @"Agents"
+
 //uClassify REST client (see https://www.uclassify.com/docs/restapi)
 @interface UCHTTPClient : AFHTTPSessionManager
 
 + (UCHTTPClient *)sharedUCHTTPClient;
 
-- (void)classifyText:(NSString *)text usingClassifier:(NSString *)classifier;
+- (void)classifyText:(NSString *)text
+     usingClassifier:(NSString *)classifier
+    withSuccessBlock:(void (^)(NSArray<NSString *> *classesNames))success;
 
 @end

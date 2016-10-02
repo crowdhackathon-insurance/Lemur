@@ -65,12 +65,6 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];*/
-    
-    [[CYHTTPClient sharedCYHTTPClient] fetchResponseWithUserInput:[Request requestWithUserInput:@"ewf s"] WithSuccessBlock:^(Response *response) {
-        NSLog(@"got response %@", response.text);
-    } andFailureBlock:^(Response *error) {
-        NSLog(@"got ERROR %@", error.text);
-    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -159,7 +153,7 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     else {
         TextAnswerCell *textAnswerCell = (TextAnswerCell *)[[NSBundle mainBundle] loadNibNamed:@"TextAnswerCell" owner:nil options:nil].firstObject;
 
-        textAnswerCell.answerLabel.text = self.lastServerResponse.text;
+        textAnswerCell.answerLabel.text = self.lastServerResponse.body;
         
         cell = textAnswerCell;
     }
@@ -172,14 +166,33 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
 - (void)performRequestForUserInput:(NSString *)userInput
 {
     self.lastUserInput = userInput;
+    if (self.lastUserInput.length == 0) {
+        return;
+    }
+    
     self.currentStatus = cyStatusWaitingServerResponse;
     [self.tableview reloadData];
-    [self performSelector:@selector(serverResponse) withObject:nil afterDelay:1.5];
+    
+    __weak typeof (self) weakSelfRef = self;
+    [[CYHTTPClient sharedCYHTTPClient] fetchResponseWithUserInput:[Request requestWithUserInput:self.lastUserInput]
+                                                 WithSuccessBlock:^(Response *response) {
+        __strong typeof(self) strongSelfRef = weakSelfRef;
+        NSLog(@"got response %@", response.text);
+        strongSelfRef.lastServerResponse = response;
+        [strongSelfRef serverResponse];
+    } andFailureBlock:^(Response *error) {
+        __strong typeof(self) strongSelfRef = weakSelfRef;
+        NSLog(@"got ERROR %@", error.text);
+        strongSelfRef.lastServerResponse = [Response unknownError];
+        [strongSelfRef serverResponse];
+    }];
+
+//    [self performSelector:@selector(serverResponse) withObject:nil afterDelay:1.5];
 }
 
 - (void)serverResponse
 {
-    self.lastServerResponse = [Response unknownError];//responseWithAnswer:@"i am afraid i can't let you do that"];
+//    self.lastServerResponse = [Response unknownError];//responseWithAnswer:@"i am afraid i can't let you do that"];
     
     if (self.lastServerResponse == [Response unknownError]) {
         self.currentStatus = cyStatusDisplayingEmptyResponse;

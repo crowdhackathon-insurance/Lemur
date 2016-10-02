@@ -10,14 +10,18 @@
 
 @interface Response : JSONModel
 
-//Type of respose, "text", "locations", "url"
-@property (strong, nonatomic) NSString *type;
+@property (copy, nonatomic) NSString *body;
+@property (copy, nonatomic) NSString *title;
 
-@property (strong, nonatomic) NSString *url;
-@property (strong, nonatomic) NSString *text;
+//Type of respose, "text", "locations", "url"
+@property (strong, nonatomic) NSString<Optional> *type;
+
+@property (strong, nonatomic) NSString<Optional> *url;
+@property (strong, nonatomic) NSString<Optional> *text;
 //@property (strong, nonatomic) NSArray<NSString *> *locations;
 
 + (Response *)responseWithAnswer:(NSString *)answer;
++ (Response *)couldNotUnderstandRequestError;
 
 + (Response *)unknownError;
 

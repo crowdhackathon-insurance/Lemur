@@ -56,8 +56,13 @@ static UCHTTPClient *_sharedUCHTTPClient = nil;
     return self;
 }
 
-- (void)classifyText:(NSString *)text usingClassifier:(NSString *)classifier
+- (void)classifyText:(NSString *)text
+     usingClassifier:(NSString *)classifier
+    withSuccessBlock:(void (^)(NSArray<NSString *> *classesNames))success;
+
 {
+//    success(@[kCyBrokerDuration]);
+    //return;
     NSString *targetResource = [NSString stringWithFormat:@"%@/%@/classify", AFPercentEscapedStringFromString(self.username), AFPercentEscapedStringFromString(classifier)];
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
@@ -67,13 +72,26 @@ static UCHTTPClient *_sharedUCHTTPClient = nil;
     parameters:[parameters copy]
       progress:nil
        success:^(NSURLSessionDataTask *task, id responseObject) {
-           NSDictionary *signupSuccessullResponseJSON = (NSDictionary *)responseObject;
-           NSError *error;
+           NSArray *resultArray = (NSArray *)responseObject;
+           NSDictionary *result = [resultArray firstObject];
            
-           NSLog(@"%@", error);
+           NSMutableArray *classesNames = [NSMutableArray new];
+           
+           if (result[@"classification"]) {
+               for (NSDictionary *objs in result[@"classification"]) {
+                   NSString *className = objs[@"className"];
+                   NSString *probabilityString = objs[@"p"];
+                   
+                   if (className && probabilityString && [probabilityString doubleValue] > 0.29) {
+                       [classesNames addObject:className];
+                   }
+               }
+           }
+           
+           success([classesNames copy]);
            
        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-           
+           success(@[]);
        }];
     
     [self logTask:task];
@@ -82,7 +100,7 @@ static UCHTTPClient *_sharedUCHTTPClient = nil;
 -(void)logTask:(NSURLSessionDataTask *)task {
     
     NSString *requestString = [[NSString alloc] initWithData:task.originalRequest.HTTPBody encoding:0];
-    NSString *responseString = task.originalRequest.URL;
+    NSString *responseString = [task.originalRequest.URL absoluteString];
     
     NSLog(@"\n\nRequest - %@\n\nResponse - %@\n\n", requestString, responseString);
 }

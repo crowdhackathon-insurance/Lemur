@@ -32,4 +32,17 @@ static Response *unknownErrorRsp;
     return unknownErrorRsp;
 }
 
++ (Response *)couldNotUnderstandRequestError
+{
+    //TODO: synchronize
+    if (!unknownErrorRsp) {
+        Response *rsp = [Response new];
+        rsp.text = @"Sorry, I could not understand yout question";
+        unknownErrorRsp = rsp;
+    }
+    
+    return unknownErrorRsp;
+}
+
+
 @end

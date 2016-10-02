@@ -29,29 +29,78 @@ static CYHTTPClient *_sharedCYHTTPClient = nil;
                                     WithSuccessBlock:(void (^)(Response *response))success
                                      andFailureBlock:(void (^)(Response *error))failure
 {
+//    NSString *targetResource
+//    = [NSString stringWithFormat:@"%@", @"names", AFPercentEscapedStringFromString(userRequest.userInput)];
+
+    __weak typeof(self) weakSelfRef = self;
+    //Fetch from the uclassify the matched classes
+    [[UCHTTPClient sharedUCHTTPClient] classifyText:@"What is my contract price"
+                                    usingClassifier:kInsuranceFaqClassifierName
+                                   withSuccessBlock:^(NSArray<NSString *> *classesNames) {
+                                       __strong typeof(self) strongSelfRef = weakSelfRef;
+                                       
+                                       //Return if no classes where matched
+                                       if ([classesNames count] <= 0) {
+                                           failure([Response couldNotUnderstandRequestError]);
+                                           return;
+                                       }
+                                       
+                                       NSString *targetResource = [self targetResourceForClasses:classesNames
+                                                                                     userRequest:userRequest.userInput];
+
+
+                                       [strongSelfRef GET:targetResource
+                                               parameters:nil
+                                                 progress:nil
+                                                  success:^(NSURLSessionDataTask *task, id responseObject) {
+                                           
+                                           NSDictionary *response = (NSDictionary *)responseObject;
+                                           NSError *error;
+                                           Response *result
+                                           = [[Response alloc] initWithDictionary:response error:&error];
+                                           
+                                           
+                                           if (error || !result) {
+                                               failure([Response unknownError]);
+                                           }
+                                           else {
+                                               success(result);
+                                           }
+                                       } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                           failure([Response unknownError]);
+                                       }];
+                                       
+                                   }];
+
+    return nil;
+}
+
+- (NSString *)targetResourceForClasses:(NSArray<NSString *> *)classesNames userRequest:(NSString *)userRequest
+{
+    NSString *targetResource = @"";
     
-    [[UCHTTPClient sharedUCHTTPClient] classifyText:@"What is my contract price" usingClassifier:kInsuranceFaqClassifierName];
-    NSString *targetResource
-    = [NSString stringWithFormat:@"%@", @"names", AFPercentEscapedStringFromString(userRequest.userInput)];
-
-    return [self GET:targetResource parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        
-        NSDictionary *response = (NSDictionary *)responseObject;
-        NSError *error;
-        Response *result
-        = [[Response alloc] initWithDictionary:response error:&error];
-        
-        
-        if (error || !result) {
-            failure([Response unknownError]);
-        }
-        else {
-            success(result);
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        failure([Response unknownError]);
-    }];
-
+    BOOL hasPrice = [classesNames containsObject:kCyBrokerPrice];
+    BOOL hasDuration = [classesNames containsObject:kCyBrokerDuration];
+    BOOL hasCovarage = [classesNames containsObject:kCyBrokerCoverage];
+    BOOL hasAgents = [classesNames containsObject:kCyBrokerAgents];
+    
+    if (hasPrice) {
+        targetResource = @"sum";
+    }
+    else if (hasDuration) {
+        targetResource = @"dates";
+    }
+    else if (hasCovarage) {
+        targetResource = @"coverage";
+    }
+    else if (hasAgents) {
+        targetResource = @"agents";
+    }
+/*    else if () {
+        targetResource = @"";
+    }*/
+    
+    return targetResource;
 }
 
 NSString * AFPercentEscapedStringFromString(NSString *string) {
