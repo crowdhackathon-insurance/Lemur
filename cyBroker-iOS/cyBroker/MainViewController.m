@@ -179,7 +179,7 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
 
 - (void)serverResponse
 {
-    self.lastServerResponse = [Response responseWithAnswer:@"i am afraid i can't let you do that"];
+    self.lastServerResponse = [Response unknownError];//responseWithAnswer:@"i am afraid i can't let you do that"];
     
     if (self.lastServerResponse == [Response unknownError]) {
         self.currentStatus = cyStatusDisplayingEmptyResponse;

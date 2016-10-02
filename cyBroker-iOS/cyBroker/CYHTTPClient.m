@@ -7,21 +7,22 @@
 //
 
 #import "CYHTTPClient.h"
+#import "UCHTTPClient.h"
 
 #define kPOHTTPClientBaseURLString @"http://192.168.177.95/"
 
 @implementation CYHTTPClient
 
-static CYHTTPClient *_sharedPOHTTPClient = nil;
+static CYHTTPClient *_sharedCYHTTPClient = nil;
 
 + (CYHTTPClient *)sharedCYHTTPClient
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedPOHTTPClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:kPOHTTPClientBaseURLString]];
+        _sharedCYHTTPClient = [[self alloc] initWithBaseURL:[NSURL URLWithString:kPOHTTPClientBaseURLString]];
     });
     
-    return _sharedPOHTTPClient;
+    return _sharedCYHTTPClient;
 }
 
 - (NSURLSessionDataTask *)fetchResponseWithUserInput:(Request *)userRequest
@@ -29,6 +30,7 @@ static CYHTTPClient *_sharedPOHTTPClient = nil;
                                      andFailureBlock:(void (^)(Response *error))failure
 {
     
+    [[UCHTTPClient sharedUCHTTPClient] classifyText:@"What is my contract price" usingClassifier:kInsuranceFaqClassifierName];
     NSString *targetResource
     = [NSString stringWithFormat:@"%@", @"names", AFPercentEscapedStringFromString(userRequest.userInput)];
 

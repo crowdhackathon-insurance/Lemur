@@ -12,6 +12,8 @@
 		093FB34E1DA0254F0004CB34 /* HeaderLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093FB34D1DA0254F0004CB34 /* HeaderLabelCell.xib */; };
 		09BBB2B21DA1102600EBF75D /* TextAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BBB2B01DA1102600EBF75D /* TextAnswerCell.m */; };
 		09BBB2B31DA1102600EBF75D /* TextAnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09BBB2B11DA1102600EBF75D /* TextAnswerCell.xib */; };
+		09BBB2B61DA1189100EBF75D /* UCHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BBB2B51DA1189100EBF75D /* UCHTTPClient.m */; };
+		09BBB2B81DA11B5700EBF75D /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09BBB2B71DA11B5700EBF75D /* credentials.plist */; };
 		09BE3B501DA0E83900F5E29F /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BE3B4F1DA0E83900F5E29F /* Request.m */; };
 		09BE3B531DA0E88500F5E29F /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BE3B521DA0E88500F5E29F /* Response.m */; };
 		09BE3B551DA0EB5600F5E29F /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09BE3B541DA0EB5600F5E29F /* Speech.framework */; };
@@ -32,6 +34,9 @@
 		09BBB2AF1DA1102600EBF75D /* TextAnswerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAnswerCell.h; sourceTree = "<group>"; };
 		09BBB2B01DA1102600EBF75D /* TextAnswerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextAnswerCell.m; sourceTree = "<group>"; };
 		09BBB2B11DA1102600EBF75D /* TextAnswerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextAnswerCell.xib; sourceTree = "<group>"; };
+		09BBB2B41DA1189100EBF75D /* UCHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCHTTPClient.h; sourceTree = "<group>"; };
+		09BBB2B51DA1189100EBF75D /* UCHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCHTTPClient.m; sourceTree = "<group>"; };
+		09BBB2B71DA11B5700EBF75D /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		09BE3B4E1DA0E83900F5E29F /* Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Request.h; sourceTree = "<group>"; };
 		09BE3B4F1DA0E83900F5E29F /* Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
 		09BE3B511DA0E88500F5E29F /* Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Response.h; sourceTree = "<group>"; };
@@ -132,6 +137,8 @@
 			children = (
 				09D33B5C1D9FC285009864D6 /* AppDelegate.h */,
 				09D33B5D1D9FC285009864D6 /* AppDelegate.m */,
+				09BBB2B41DA1189100EBF75D /* UCHTTPClient.h */,
+				09BBB2B51DA1189100EBF75D /* UCHTTPClient.m */,
 				09BE3B561DA0EFC600F5E29F /* CYHTTPClient.h */,
 				09BE3B571DA0EFC600F5E29F /* CYHTTPClient.m */,
 				09BE3B4D1DA0E7C300F5E29F /* Models */,
@@ -141,6 +148,7 @@
 				09D33B671D9FC285009864D6 /* LaunchScreen.storyboard */,
 				09D33B6A1D9FC285009864D6 /* Info.plist */,
 				09D33B591D9FC285009864D6 /* Supporting Files */,
+				09BBB2B71DA11B5700EBF75D /* credentials.plist */,
 			);
 			path = cyBroker;
 			sourceTree = "<group>";
@@ -224,6 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				093FB34E1DA0254F0004CB34 /* HeaderLabelCell.xib in Resources */,
+				09BBB2B81DA11B5700EBF75D /* credentials.plist in Resources */,
 				09D33B691D9FC285009864D6 /* LaunchScreen.storyboard in Resources */,
 				093FB34B1D9FE5A20004CB34 /* MainView.xib in Resources */,
 				09D33B661D9FC285009864D6 /* Assets.xcassets in Resources */,
@@ -292,6 +301,7 @@
 				09D33B611D9FC285009864D6 /* MainViewController.m in Sources */,
 				09BE3B501DA0E83900F5E29F /* Request.m in Sources */,
 				093FB3481D9FE2B50004CB34 /* HeaderLabelCell.m in Sources */,
+				09BBB2B61DA1189100EBF75D /* UCHTTPClient.m in Sources */,
 				09D33B5E1D9FC285009864D6 /* AppDelegate.m in Sources */,
 				09D33B5B1D9FC285009864D6 /* main.m in Sources */,
 			);
