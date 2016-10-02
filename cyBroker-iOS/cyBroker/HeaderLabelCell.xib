@@ -25,12 +25,12 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" returnKeyType="search"/>
                     </textField>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How may I help you?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOT-0A-IO4">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How may I help you?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iOT-0A-IO4">
                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3lC-Dh-Jlk">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3lC-Dh-Jlk">
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="1uk-2S-SMh"/>
                             <constraint firstAttribute="height" constant="30" id="ztZ-2z-D3A"/>
@@ -53,9 +53,10 @@
             <connections>
                 <outlet property="loadingIndicator" destination="8fq-Q3-nTs" id="4cA-yL-odw"/>
                 <outlet property="mainLabel" destination="iOT-0A-IO4" id="Lai-6v-YPn"/>
+                <outlet property="micButton" destination="3lC-Dh-Jlk" id="t27-pb-yY4"/>
                 <outlet property="textField" destination="25Y-7N-5wY" id="UMc-dm-LOI"/>
             </connections>
-            <point key="canvasLocation" x="159" y="141"/>
+            <point key="canvasLocation" x="-281" y="-27"/>
         </tableViewCell>
     </objects>
 </document>

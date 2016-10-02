@@ -19,11 +19,21 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     cyStatusDisplayingEmptyResponse
 };
 
-@interface MainViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SFSpeechRecognizerDelegate>
+@interface MainViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SFSpeechRecognizerDelegate, SFSpeechRecognitionTaskDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 
+@property (strong, nonatomic) SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
+@property (strong, nonatomic) SFSpeechRecognitionTask *recognitionTask;
+@property (strong, nonatomic) AVAudioEngine *audioEngine;
+@property (strong, nonatomic) SFSpeechRecognizer *speechRecognizer;
+@property (nonatomic, nullable) AVAudioInputNode *inputNode;
+
 @property (nonatomic) kCyStatus currentStatus;
+
+@property (strong, nonatomic) UITextField *userInputTextField;
+@property (strong, nonatomic) UIButton *micButton;
+@property (strong, nonatomic) NSString *lastUserInput;
 @end
 
 @implementation MainViewController
@@ -37,6 +47,8 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     self.tableview.tableFooterView = [UIView new];
     
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
+        self.audioEngine = [[AVAudioEngine alloc] init];
+        self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[NSLocale localeWithLocaleIdentifier:@"en-US"]];
     }];
     
     /*
@@ -93,7 +105,13 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     if (indexPath.section == 0) {
         HeaderLabelCell *headerLabelCell = (HeaderLabelCell *)[[NSBundle mainBundle] loadNibNamed:@"HeaderLabelCell" owner:nil options:nil].firstObject;
 //        headerLabelCell.translatesAutoresizingMaskIntoConstraints = NO;
-        
+        self.userInputTextField = headerLabelCell.textField;
+        self.userInputTextField.text = self.lastUserInput;
+        if (self.micButton != headerLabelCell.micButton) {
+            self.micButton = headerLabelCell.micButton;
+            [self.micButton addTarget:self action:@selector(startRecording:) forControlEvents:UIControlEventTouchUpInside];
+            [self.micButton setBackgroundImage:[UIImage imageNamed:@"mic-disabled"] forState:UIControlStateNormal];
+        }
         headerLabelCell.textField.delegate = self;
         
         kCyStatus status = [self getCurrentStatus];
@@ -116,7 +134,7 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
                 headerLabelCell.mainLabel.text = @"How may I help you?";
                 break;
             case cyStatusDisplayingEmptyResponse:
-                headerLabelCell.mainLabel.text = @"Sorry I did not find any results";
+                headerLabelCell.mainLabel.text = @"Sorry, I did not find any results";
                 break;
         }
         cell = headerLabelCell;
@@ -126,13 +144,19 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
     return cell;
 }
 
+- (void)performRequestForUserInput:(NSString *)userInput
+{
+    self.lastUserInput = userInput;
+    self.currentStatus = cyStatusWaitingServerResponse;
+    [self.tableview reloadData];
+    [self performSelector:@selector(serverResponse) withObject:nil afterDelay:3.5];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     
-    self.currentStatus = cyStatusWaitingServerResponse;
-    [self performSelector:@selector(serverResponse) withObject:nil afterDelay:2];
-    [self.tableview reloadData];
+    [self performRequestForUserInput:textField.text];
     return YES;
 }
 
@@ -145,6 +169,118 @@ typedef NS_ENUM(NSInteger, kCyStatus) {
 - (kCyStatus)getCurrentStatus
 {
     return self.currentStatus;
+}
+
+#pragma mark - Audio Rec
+
+- (void)startRecording:(UIButton *)sender
+{
+    if (self.recognitionTask != nil) {
+        [self.audioEngine stop];
+        [self.inputNode removeTapOnBus:0];
+        self.recognitionTask = nil;
+        self.recognitionRequest = nil;
+
+        [self.recognitionTask cancel];
+        self.recognitionTask = nil;
+        self.userInputTextField.text = @"";
+    }
+    [self.micButton setBackgroundImage:[UIImage imageNamed:@"mic-enabled"] forState:UIControlStateNormal];
+    
+/*
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryRecord error:nil];
+    [session setMode:AVAudioSessionModeMeasurement error:nil];
+    [session setActive:YES error:nil];
+    
+    self.recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
+//self.audioEngine.inputNode
+    self.recognitionRequest.shouldReportPartialResults= YES;
+    self.recognitionTask = self.spe
+ */
+    
+    NSError * outError;
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryRecord error:&outError];
+    [audioSession setMode:AVAudioSessionModeMeasurement error:&outError];
+    [audioSession setActive:true withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation  error:&outError];
+    
+    self.recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
+    
+    self.inputNode = [self.audioEngine inputNode];
+    
+    if (self.recognitionRequest == nil) {
+        NSLog(@"Unable to created a SFSpeechAudioBufferRecognitionRequest object");
+    }
+    
+    if (self.inputNode == nil) {
+        
+        NSLog(@"Unable to created a inputNode object");
+    }
+    
+    self.recognitionRequest.shouldReportPartialResults = true;
+    
+   self.recognitionTask = [self.speechRecognizer recognitionTaskWithRequest:self.recognitionRequest
+                                        resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
+                                            [self speechRecognitionTask:self.recognitionTask didFinishRecognition:result];
+                                        }];
+//    _currentTask = [self.speechRecognizer recognitionTaskWithRequest:self.recognitionRequest
+  //                                                delegate:self];
+
+    
+    [self.inputNode installTapOnBus:0 bufferSize:4096 format:[self.inputNode outputFormatForBus:0] block:^(AVAudioPCMBuffer *buffer, AVAudioTime *when){
+        NSLog(@"Block tap!");
+        
+        [self.recognitionRequest appendAudioPCMBuffer:buffer];
+        
+    }];
+    
+    [self.audioEngine prepare];
+    [self.audioEngine startAndReturnError:&outError];
+    NSLog(@"Error %@", outError);
+}
+
+- (void)speechRecognitionTask:(SFSpeechRecognitionTask *)task didFinishRecognition:(SFSpeechRecognitionResult *)result {
+    
+    NSLog(@"speechRecognitionTask:(SFSpeechRecognitionTask *)task didFinishRecognition");
+    NSString * translatedString = [[[result bestTranscription] formattedString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+//    [self log:translatedString];
+   
+    NSLog(@"%@", translatedString);
+    
+    if ([result isFinal]) {
+        [self.audioEngine stop];
+        [self.inputNode removeTapOnBus:0];
+        self.recognitionTask = nil;
+        self.recognitionRequest = nil;
+        self.micButton.alpha = 1.0f;
+        [self.micButton setBackgroundImage:[UIImage imageNamed:@"mic-disabled"] forState:UIControlStateNormal];
+        //perform request
+        [self performRequestForUserInput:self.userInputTextField.text];
+    }
+    [self performSelector:@selector(cancelRecordingAndStartRequest)
+               withObject:nil afterDelay:2.0];
+    
+    self.userInputTextField.text = translatedString;
+}
+
+- (void)cancelRecordingAndStartRequest
+{
+    @synchronized (self) {
+        if (self.userInputTextField.text.length > 10
+            && (self.currentStatus != cyStatusWaitingServerResponse)) {
+            [self.audioEngine stop];
+            [self.inputNode removeTapOnBus:0];
+            self.recognitionTask = nil;
+            self.recognitionRequest = nil;
+            self.micButton.alpha = 1.0f;
+            [self.micButton setBackgroundImage:[UIImage imageNamed:@"mic-disabled"] forState:UIControlStateNormal];
+            //perform request
+            [self performRequestForUserInput:self.userInputTextField.text];
+        }
+    }
 }
 
 @end
