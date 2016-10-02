@@ -34,7 +34,7 @@ static CYHTTPClient *_sharedCYHTTPClient = nil;
 
     __weak typeof(self) weakSelfRef = self;
     //Fetch from the uclassify the matched classes
-    [[UCHTTPClient sharedUCHTTPClient] classifyText:@"What is my contract price"
+    [[UCHTTPClient sharedUCHTTPClient] classifyText:userRequest.userInput
                                     usingClassifier:kInsuranceFaqClassifierName
                                    withSuccessBlock:^(NSArray<NSString *> *classesNames) {
                                        __strong typeof(self) strongSelfRef = weakSelfRef;
