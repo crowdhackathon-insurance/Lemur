@@ -94,7 +94,7 @@ static CYHTTPClient *_sharedCYHTTPClient = nil;
         targetResource = @"coverage";
     }
     else if (hasAgents) {
-        targetResource = @"agents";
+        targetResource = @"agent";
     }
 /*    else if () {
         targetResource = @"";
